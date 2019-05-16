@@ -126,8 +126,8 @@ Note FunctionArn value __${FUNCTIONARN}__ and FunctionName __${FUNCTIONNAME}__ v
 
 8. Set Environment Variables including DefaultConnection, Audience, Issuer, and SecretKey. DefaultConnection contains the connection string for connecting to your database. Audience, Issuer, and SecretKey are needed to issue JWT securely.
 ```
-aws lambda update-function-configuration \
-            --function-name ${FUNCTIONNAME} \
+aws lambda update-function-configuration 
+            --function-name ${FUNCTIONNAME} 
             --environment Variables={DefaultConnection=${CONNECTIONSTRING},Audience=MyAudience,Issuer=MyIssuer,SecretKey=mysupersecret_secretkey!123}
 ```
 
@@ -163,9 +163,9 @@ Note the root resource id value __${PARENTRESOURCEID}__. You need it in the next
 
 11. Call create-resource to create an API Gateway Resource
 ```
-aws apigateway create-resource --rest-api-id ${APIID} \
-      --region ${REGION} \
-      --parent-id ${PARENTRESOURCEID} \
+aws apigateway create-resource --rest-api-id ${APIID} 
+      --region ${REGION} 
+      --parent-id ${PARENTRESOURCEID} 
       --path-part {proxy+}
 ```
 Note the resulting resource's id value __${RESOURCEID}__. You need it in the next step.
@@ -180,22 +180,23 @@ Note the resulting resource's id value __${RESOURCEID}__. You need it in the nex
 
 12. Call put-method to create an ANY method request of ANY /{proxy+}
 ```
-aws apigateway put-method --rest-api-id ${APIID} \
-       --region ${REGION} \
-       --resource-id ${RESOURCEID} \
-       --http-method ANY \
+aws apigateway put-method 
+       --rest-api-id ${APIID} 
+       --region ${REGION} 
+       --resource-id ${RESOURCEID} 
+       --http-method ANY 
        --authorization-type "NONE" 
 ```
 
 13. Call put-integration to set up the integration of the ANY /{proxy+} method with a Lambda function
 ```
-aws apigateway put-integration \
+aws apigateway put-integration 
         --region ${REGION}
-        --rest-api-id ${APIID} \
-        --resource-id ${RESOURCEID} \
-        --http-method ANY \
-        --type AWS_PROXY \
-        --integration-http-method POST \
+        --rest-api-id ${APIID} 
+        --resource-id ${RESOURCEID} 
+        --http-method ANY 
+        --type AWS_PROXY 
+        --integration-http-method POST 
         --uri arn:aws:apigateway:${REGION}:lambda:path/2015-03-31/functions/${FUNCTIONARN}/invocations 
 ```
 

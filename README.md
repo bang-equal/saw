@@ -133,7 +133,8 @@ aws lambda update-function-configuration \
 
 9. Create an AWS APIGateway API
 ```
-aws apigateway create-rest-api --name saw --region ${REGION}
+aws apigateway create-rest-api --name saw --region ${REGION} --endpoint-configuration {"types":"REGIONAL"]
+}
 ```
 Note the resulting API's id value __${APIID}__ in the response. You need it in the next step and later 
 ```

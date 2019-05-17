@@ -207,7 +207,7 @@ aws lambda add-permission \
         --action "lambda:InvokeFunction" \
         --statement-id 1 \
         --principal apigateway.amazonaws.com \
-        --source-arn "arn:aws:execute-api:"${REGION}":"${ACCOUNT_ID}":"${API_ID}"/*/*/"${API_NAME}
+        --source-arn "arn:aws:execute-api:"${REGION}":"${ACCOUNT_ID}":"${API_ID}"/*/*/*"
 ```
 
 15. Call create-deployment to deploy the API to a test stage. Note stage name __${STAGENAME}__.

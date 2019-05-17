@@ -210,23 +210,23 @@ aws lambda add-permission \
         --source-arn "arn:aws:execute-api:"${REGION}":"${ACCOUNT_ID}":"${API_ID}"/*/*/"${API_NAME}
 ```
 
-14. Call create-deployment to deploy the API to a test stage. Note stage name __${STAGENAME}__.
+15. Call create-deployment to deploy the API to a test stage. Note stage name __${STAGENAME}__.
 ```
 aws apigateway create-deployment --rest-api-id ${APIID} --stage-name test
 ```
 
-15. The API is now invoked by submitting requests the URL.
+16. The API is now invoked by submitting requests the URL.
 ```
 https://${APIID}.execute-api.${REGION}.amazonaws.com/${STAGENAME}/blog
 ```
 
-16. First register a user.
+17. First register a user.
 ```
 POST https://${APIID}.execute-api.${REGION}.amazonaws.com/${STAGENAME}/blog/account/register
 {"Email" : "YourName@ok.com", "PasswordHash" : "Abc!"}
 ```
 
-17. Now login the user to get a security token.
+18. Now login the user to get a security token.
 ```
 POST https://${APIID}.execute-api.${REGION}.amazonaws.com/${STAGENAME}/blog/account/login
 Body
@@ -235,7 +235,7 @@ Email YourName@ok.com
 Password Abc123!
 ```
 
-18. Use your security tokens to send JSON GET, POST, PUT, and DELETE requests.
+19. Use your security tokens to send JSON GET, POST, PUT, and DELETE requests.
 ```
 GET https://${APIID}.execute-api.${REGION}.amazonaws.com/${STAGENAME}/blog/articles
 Headers

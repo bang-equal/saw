@@ -225,16 +225,15 @@ https://${APIID}.execute-api.${REGION}.amazonaws.com/${STAGENAME}/blog
 POST https://${APIID}.execute-api.${REGION}.amazonaws.com/${STAGENAME}/blog/account/register
 Body
 application/json
-{"Email" : "YourName@ok.com", "PasswordHash" : "Abc!"}
+{"Email" : "YourName@ok.com", "PasswordHash" : "Abc!123"}
 ```
 
 18. Now login the user to get a security token.
 ```
 POST https://${APIID}.execute-api.${REGION}.amazonaws.com/${STAGENAME}/blog/account/login
 Body
-x-www-form-urlencoded
-Email YourName@ok.com
-Password Abc123!
+application/json
+{"Email" : "YourName@ok.com", "PasswordHash" : "Abc!123"}
 ```
 
 19. Use your security tokens to send JSON GET, POST, PUT, and DELETE requests.

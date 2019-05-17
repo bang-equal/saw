@@ -95,7 +95,7 @@ dotnet lambda deploy-serverless
 aws lambda list-functions
 ```
 
-Note FunctionArn value __${FUNCTIONARN}__ and FunctionName __${FUNCTIONNAME}__ value because it will be needed later.
+Note FunctionArn value __${FUNCTIONARN}__ and FunctionName __${FUNCTIONNAME}__ values because they will be needed later.
 ```
 {
     "Functions": [
@@ -133,8 +133,7 @@ aws lambda update-function-configuration \
 
 9. Create an AWS APIGateway API
 ```
-aws apigateway create-rest-api --name saw --region ${REGION} --endpoint-configuration {"types":"REGIONAL"]
-}
+aws apigateway create-rest-api --name saw --region ${REGION} --endpoint-configuration {"types":"REGIONAL"}
 ```
 Note the resulting API's id value __${APIID}__ in the response. You need it in the next step and later 
 ```

@@ -1,8 +1,8 @@
-# Serverless ASP.NET WebAPI 
+# <span style="color:red;">S</span>erverless <span style="color:red;">A</span>SP.NET <span style="color:red;">W</span>ebAPI 
 
 |   |   |
 | ------------- | ------------- |
-| Framework   | __ASP.NET Core MVC 2.1.x__ |
+| Framework   | __ASP.NET Core 2.1.x__ |
 | | |
 | Security  | __ASP.NET Core Identity 2.1.x__  |
 | | __JWT Bearer Authentication__  |
@@ -42,7 +42,7 @@ This project contains a full working example of a severless ASP.NET Web API. Use
 * [.NET Core 2.1](https://dotnet.microsoft.com/download/dotnet-core/2.1)
 * [Postgresql 10](https://www.postgresql.org/about/news/1786/) database instance, you can use a cloud database service like [AWS RDS](https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/USER_CreatePostgreSQLInstance.html) or run your own server on localhost. You will need to build a Connection String and note value __${CONNECTIONSTRING}__ for later use.
 ```
-"User ID=${USERID};Password=${PASSWORD};Host=${SERVER};Port=5432;Database=Blog;Pooling=true;",
+User ID=${USERID};Password=${PASSWORD};Host=${SERVER};Port=5432;Database=Blog;Pooling=true;
 ```
 
 * [Amazon Web Services (AWS)](https://aws.amazon.com/) account. Be sure to have generated [access keys](https://docs.aws.amazon.com/general/latest/gr/managing-aws-access-keys.html) for your aws account user. Not recommended to use your root user though, instead create an [IAM](https://docs.aws.amazon.com/IAM/latest/UserGuide/best-practices.html#create-iam-users) user.
@@ -85,7 +85,7 @@ dotnet tool install -g Amazon.Lambda.Tools
 aws s3api create-bucket --bucket saw-11052019
 ````
 
-6. Before running command below and deploying application to AWS Lambda, verify aws-lambda-tools-defaults.json has correct value for region. Be patient while the application builds and uploads.
+6. Before running command below and deploying application to AWS Lambda, verify [aws-lambda-tools-defaults.json](src/saw/aws-lambda-tools-defaults.json) has correct value for region. Be patient while the application builds and uploads.
 ```
 dotnet lambda deploy-serverless
 ```
@@ -126,8 +126,8 @@ Note FunctionArn value __${FUNCTIONARN}__ and FunctionName __${FUNCTIONNAME}__ v
 
 8. Set Environment Variables including DefaultConnection, Audience, Issuer, and SecretKey. DefaultConnection contains the connection string for connecting to your database. Audience, Issuer, and SecretKey are needed to issue JWT securely.
 ```
-aws lambda update-function-configuration 
-            --function-name ${FUNCTIONNAME} 
+aws lambda update-function-configuration \
+            --function-name ${FUNCTIONNAME} \
             --environment Variables={DefaultConnection=${CONNECTIONSTRING},Audience=MyAudience,Issuer=MyIssuer,SecretKey=mysupersecret_secretkey!123}
 ```
 
@@ -163,9 +163,9 @@ Note the root resource id value __${PARENTRESOURCEID}__. You need it in the next
 
 11. Call create-resource to create an API Gateway Resource
 ```
-aws apigateway create-resource --rest-api-id ${APIID} 
-      --region ${REGION} 
-      --parent-id ${PARENTRESOURCEID} 
+aws apigateway create-resource --rest-api-id ${APIID} \
+      --region ${REGION} \
+      --parent-id ${PARENTRESOURCEID} \
       --path-part {proxy+}
 ```
 Note the resulting resource's id value __${RESOURCEID}__. You need it in the next step.
@@ -180,23 +180,23 @@ Note the resulting resource's id value __${RESOURCEID}__. You need it in the nex
 
 12. Call put-method to create an ANY method request of ANY /{proxy+}
 ```
-aws apigateway put-method 
-       --rest-api-id ${APIID} 
-       --region ${REGION} 
-       --resource-id ${RESOURCEID} 
-       --http-method ANY 
+aws apigateway put-method \
+       --rest-api-id ${APIID} \
+       --region ${REGION} \
+       --resource-id ${RESOURCEID} \
+       --http-method ANY \
        --authorization-type "NONE" 
 ```
 
 13. Call put-integration to set up the integration of the ANY /{proxy+} method with a Lambda function
 ```
-aws apigateway put-integration 
-        --region ${REGION}
-        --rest-api-id ${APIID} 
-        --resource-id ${RESOURCEID} 
-        --http-method ANY 
-        --type AWS_PROXY 
-        --integration-http-method POST 
+aws apigateway put-integration \
+        --region ${REGION} \
+        --rest-api-id ${APIID} \
+        --resource-id ${RESOURCEID} \
+        --http-method ANY \
+        --type AWS_PROXY \
+        --integration-http-method POST \
         --uri arn:aws:apigateway:${REGION}:lambda:path/2015-03-31/functions/${FUNCTIONARN}/invocations 
 ```
 

@@ -85,7 +85,7 @@ dotnet tool install -g Amazon.Lambda.Tools
 aws s3api create-bucket --bucket saw-11052019
 ````
 
-6. Before running command below and deploying application to AWS Lambda, verify [aws-lambda-tools-defaults.json](src/saw/aws-lambda-tools-defaults.json) has correct value for region. Be patient while the application builds and uploads.
+6. Before running command below and deploying application to AWS Lambda, verify [aws-lambda-tools-defaults.json](src/saw/aws-lambda-tools-defaults.json) has correct value for region. You will be prompted to enter a CloudFormation Stack Name (enter any name) and S3 Bucket (enter bucket name created previously). Be patient while the application builds and uploads.
 ```
 dotnet lambda deploy-serverless
 ```

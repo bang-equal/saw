@@ -200,6 +200,16 @@ aws apigateway put-integration \
         --uri arn:aws:apigateway:${REGION}:lambda:path/2015-03-31/functions/${FUNCTIONARN}/invocations 
 ```
 
+14. Call add-permission to give API Gateway permission to invoke your Lambda function.
+```
+aws lambda add-permission \
+        --function-name ${FUNCTIONARN} \
+        --action "lambda:InvokeFunction" \
+        --statement-id 1 \
+        --principal apigateway.amazonaws.com \
+        --source-arn "arn:aws:execute-api:"${REGION}":"${ACCOUNT_ID}":"${API_ID}"/*/*/"${API_NAME}
+```
+
 14. Call create-deployment to deploy the API to a test stage. Note stage name __${STAGENAME}__.
 ```
 aws apigateway create-deployment --rest-api-id ${APIID} --stage-name test

@@ -50,7 +50,7 @@ User ID=${USERID};Password=${PASSWORD};Host=${SERVER};Port=5432;Database=Blog;Po
 
 #### PROCEDURE ####
 
-1. Verify installation of dotnet-core
+1. Verify installation of dotnet-core.
 ```
 dotnet --version
 ```
@@ -90,7 +90,7 @@ aws s3api create-bucket --bucket saw-11052019
 dotnet lambda deploy-serverless
 ```
 
-7. Now that the lambda function has been created, display a list of all functions and find the newly created function
+7. Now that the lambda function has been created, display a list of all functions and find the newly created function.
 ```
 aws lambda list-functions
 ```
@@ -135,7 +135,7 @@ aws lambda update-function-configuration \
 ```
 aws apigateway create-rest-api --name saw --region ${REGION} --endpoint-configuration {"types":"REGIONAL"}
 ```
-Note the resulting API's id value __${APIID}__ in the response. You need it in the next step and later 
+Note the resulting API's id value __${APIID}__ in the response. You need it in the next step and later. 
 ```
 {
     "name": "saw", 
@@ -144,7 +144,7 @@ Note the resulting API's id value __${APIID}__ in the response. You need it in t
 }
 ```
 
-10. Call the get-resources command to get the root resource id
+10. Call the get-resources command to get the root resource id.
 ```
 aws apigateway get-resources --rest-api-id ${APIID} --region us-east-1
 ```
@@ -160,9 +160,10 @@ Note the root resource id value __${PARENTRESOURCEID}__. You need it in the next
 }
 ```
 
-11. Call create-resource to create an API Gateway Resource
+11. Call create-resource to create an API Gateway Resource.
 ```
-aws apigateway create-resource --rest-api-id ${APIID} \
+aws apigateway create-resource \
+      --rest-api-id ${APIID} \
       --region ${REGION} \
       --parent-id ${PARENTRESOURCEID} \
       --path-part {proxy+}
@@ -187,7 +188,7 @@ aws apigateway put-method \
        --authorization-type "NONE" 
 ```
 
-13. Call put-integration to set up the integration of the ANY /{proxy+} method with a Lambda function
+13. Call put-integration to set up the integration of the ANY /{proxy+} method with a Lambda function.
 ```
 aws apigateway put-integration \
         --region ${REGION} \
@@ -199,12 +200,12 @@ aws apigateway put-integration \
         --uri arn:aws:apigateway:${REGION}:lambda:path/2015-03-31/functions/${FUNCTIONARN}/invocations 
 ```
 
-14. Call create-deployment to deploy the API to a test stage. Note stage name __${STAGENAME}__
+14. Call create-deployment to deploy the API to a test stage. Note stage name __${STAGENAME}__.
 ```
 aws apigateway create-deployment --rest-api-id ${APIID} --stage-name test
 ```
 
-15. The API is now invoked by submitting requests the URL
+15. The API is now invoked by submitting requests the URL.
 ```
 https://${APIID}.execute-api.${REGION}.amazonaws.com/${STAGENAME}/blog
 ```

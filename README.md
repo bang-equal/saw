@@ -223,6 +223,8 @@ https://${APIID}.execute-api.${REGION}.amazonaws.com/${STAGENAME}/blog
 17. First register a user.
 ```
 POST https://${APIID}.execute-api.${REGION}.amazonaws.com/${STAGENAME}/blog/account/register
+Body
+application/json
 {"Email" : "YourName@ok.com", "PasswordHash" : "Abc!"}
 ```
 

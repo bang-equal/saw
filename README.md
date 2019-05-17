@@ -55,7 +55,7 @@ User ID=${USERID};Password=${PASSWORD};Host=${SERVER};Port=5432;Database=Blog;Po
 dotnet --version
 ```
 
-2. Configure aws-cli by providing AWS Access Key ID, AWS Secret Access Key, Default region name __${REGION__, and Default output format.
+2. Configure aws-cli by providing AWS Access Key ID, AWS Secret Access Key, Default region name __${REGION__} and Default output format.
 ```
 aws configure
 ```

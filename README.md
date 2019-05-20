@@ -209,6 +209,7 @@ aws lambda add-permission \
         --principal apigateway.amazonaws.com \
         --source-arn "arn:aws:execute-api:"${REGION}":"${ACCOUNT_ID}":"${API_ID}"/*/*/*"
 ```
+__* ${ACCOUNT_ID} is ID Number of AWS account user without dashes__
 
 15. Call create-deployment to deploy the API to a test stage. Note stage name __${STAGENAME}__.
 ```

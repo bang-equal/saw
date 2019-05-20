@@ -146,7 +146,7 @@ Note the resulting API's id value __${APIID}__ in the response. You need it in t
 
 10. Call the get-resources command to get the root resource id.
 ```
-aws apigateway get-resources --rest-api-id ${APIID} --region us-east-1
+aws apigateway get-resources --rest-api-id ${APIID} --region {REGION}
 ```
 Note the root resource id value __${PARENTRESOURCEID}__. You need it in the next step and later 
 ```

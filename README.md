@@ -128,7 +128,7 @@ Note FunctionArn value __${FUNCTIONARN}__ and FunctionName __${FUNCTIONNAME}__ v
 ```
 aws lambda update-function-configuration \
             --function-name ${FUNCTIONNAME} \
-            --environment Variables={DefaultConnection=${CONNECTIONSTRING},Audience=MyAudience,Issuer=MyIssuer,SecretKey=mysupersecret_secretkey!123}
+            --environment Variables={"DefaultConnection=${CONNECTIONSTRING},Audience=MyAudience,Issuer=MyIssuer,SecretKey=mysupersecret_secretkey!123"}
 ```
 
 9. Create an AWS APIGateway API

@@ -99,6 +99,8 @@ namespace saw
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)
         {
             app.UseCors("CorsPolicy");
+            
+            app.UseAuthentication();
 
             app.UseMvc();
 
